@@ -13,3 +13,24 @@ document.getElementById("btn-delay").addEventListener("click", async () => {
 
   out.textContent = "Done!";
 });
+
+const fakeApi = (label, ms) => wait(ms).then(() => `[${label}]`);
+
+document.getElementById("btn-chain").addEventListener("click", () => {
+  const out = document.getElementById("out-chain");
+
+  out.textContent = "Starting chain...\n";
+
+  fakeApi("Login", 1000)
+    .then((result) => {
+      out.textContent += result + "\n";
+      return fakeApi("Fetch Profile", 1000);
+    })
+    .then((result) => {
+      out.textContent += result + "\n";
+      return fakeApi("Fetch Posts", 1000);
+    })
+    .then((result) => {
+      out.textContent += result + "\nAll done!";
+    });
+});
