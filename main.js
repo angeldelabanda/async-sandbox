@@ -51,3 +51,27 @@ document.getElementById("btn-async").addEventListener("click", async () => {
 
   out.textContent += "All done!";
 });
+
+document.getElementById("btn-fetch").addEventListener("click", async () => {
+  const out = document.getElementById("out-fetch");
+
+  out.textContent = "Loading...";
+
+  try {
+    const response = await fetch("https://icanhazdadjoke.com/", {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    out.textContent = data.joke;
+  } catch (error) {
+    out.textContent = `Error: ${error.message}`;
+  }
+});
