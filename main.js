@@ -34,3 +34,20 @@ document.getElementById("btn-chain").addEventListener("click", () => {
       out.textContent += result + "\nAll done!";
     });
 });
+
+document.getElementById("btn-async").addEventListener("click", async () => {
+  const out = document.getElementById("out-async");
+
+  out.textContent = "Starting async...\n";
+
+  const login = await fakeApi("Login", 1000);
+  out.textContent += login + "\n";
+
+  const profile = await fakeApi("Fetch Profile", 1000);
+  out.textContent += profile + "\n";
+
+  const posts = await fakeApi("Fetch Posts", 1000);
+  out.textContent += posts + "\n";
+
+  out.textContent += "All done!";
+});
